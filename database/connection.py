@@ -6,8 +6,12 @@ DATABASE = Path(__file__).parent / "planner.db"
 SCHEMA = Path(__file__).parent / "schema.sql"
 
 
+def get_connection():
+    return sqlite3.connect(DATABASE)
+
+
 def initialise_database():
-    connection = sqlite3.connect(DATABASE)
+    connection = get_connection()
 
     with open(SCHEMA, "r") as file:
         schema = file.read()
@@ -15,7 +19,3 @@ def initialise_database():
     connection.executescript(schema)
     connection.commit()
     connection.close()
-
-
-if __name__ == "__main__":
-    initialise_database()
