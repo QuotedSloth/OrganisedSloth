@@ -1,4 +1,5 @@
 from database.connection import initialise_database
+from task.operations import update_task
 
 
 def main():

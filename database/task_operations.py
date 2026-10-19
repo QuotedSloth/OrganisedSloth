@@ -43,3 +43,29 @@ def get_project_tasks(project_id):
 
     connection.close()
     return tasks
+
+def update_task(task_id, title, description, due_date, priority, status, assigned_to):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        UPDATE tasks
+        SET title = ?,
+            description = ?,
+            due_date = ?,
+            priority = ?,
+            status = ?,
+            assigned_to = ?
+        WHERE task_id = ?
+    """, (
+        title,
+        description,
+        due_date,
+        priority,
+        status,
+        assigned_to,
+        task_id
+    ))
+
+    connection.commit()
+    connection.close()
